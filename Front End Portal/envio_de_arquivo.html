@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulário para envio de arquivos</title>
+        <link type="text/css" href="envio_de_arquivo.css" rel="stylesheet"></link>
+    </head>
+	<body>
+    	<img src="assets/send.png" width="40" height="40">
+        <span class="titulo">Envio de documento:</span>
+	
+        <div class="formulario">
+        <form method = "post">
+        	<div class="item-form">
+        		<label for="titulo">Título:</label><br>
+        		<input type="text" id="titulo"/>
+    		</div>
+            <div class="item-form">
+        		<label for="autores">Autores:</label><br>
+        		<input type="text" id="autores"/>
+    		</div>
+            <div class="item-form">
+        		<label for="orientadores">Orientadores:</label><br>
+        		<input type="text" id="orientadores"/>
+    		</div>
+            <div class="item-form">
+        		<label for="InstEns">Instituição de ensino:</label><br>
+        		<input type="text" id="InstEns">
+    		</div>
+            <div class="item-form">
+				<label for="tipo">Tipo de documento:</label><br>
+            	<select name="Tipo" id="tipo">
+    				<option value="pfc">PFC</option>
+    				<option value="dis">Dissertação</option>
+    				<option value="tese">Tese</option>
+    			</select>
+            </div>
+            <div class="item-form">
+        		<label for="keyword">Palavra-chave:</label><br>
+        		<input type="text" id="keyword">
+    		</div>
+            <div class="item-form">
+        		<label for="resumo">Resumo:</label><br>
+        		<input type="text" id="resumo">
+    		</div>
+            <div class="item-form">
+            	<label for="myfile">Selecione o arquivo:</label><br>
+  				<input  type="file" id="myfile" name="myfile">
+  			</div>
+			  	<div class="item-form">
+					<button class="botao-form" ><span>Enviar</span></button>
+				</div>
+        </form>           
+    </div>
+	</body>
+
+</html>

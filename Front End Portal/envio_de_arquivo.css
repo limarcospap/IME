@@ -1,0 +1,50 @@
+.titulo {
+    font-size: 24px;
+    font-family: sans-serif;
+    padding: 10px;
+    color:#0a5ac7;
+}
+
+.formulario {
+    margin-top: 10px;
+    font-family: sans-serif;
+    font-size: 16px;
+    border-top: 1px solid #f2f2f2;
+}
+
+.formulario .item-form {
+    padding: 10px;
+}
+
+.formulario .item-form label {
+    color:#0a5ac7;
+}
+
+.formulario .item-form input[type="text"] {
+    min-width:300px;
+    border: 1px solid;
+    padding: 8px;
+    border-color:#61a3ff;
+    margin:10px;
+}
+
+.formulario .item-form input[type="file"]  {
+    margin:10px;
+}
+
+.formulario .item-form select {
+    margin: 10px;
+}
+
+.formulario .item-form .botao-form {
+    padding:15px;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: #61a3ff;
+    min-width: 100px;
+}
+
+.formulario .item-form .botao-form span {
+    color:white;
+    font-size:14px;
+}
