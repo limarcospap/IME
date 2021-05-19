@@ -5,7 +5,7 @@
 #include "uartapi.c"
 #include <time.h>
 
-#define BUFFER_SIZE 1000
+#define BUFFER_SIZE 200
 
 BOOL detect_question(char *string){
     int length = strlen(string);
@@ -38,20 +38,26 @@ void set_esp8266_server(void){
 }
 
 int main(){
-        int rand_num;
+        int rand_num, not_garbage = 1;
         int counter = 0, position_of_message, new_string_length, start, end;
         char caractere, buffer[BUFFER_SIZE], *new_string, send_command[50];
-        char answers[4][17] = {"Yes", "No", "Maybe", "Weird question..."};
+        char answers[20][25] = {"It is Certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy, try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"};
         srand(time(0));
-        rand_num = rand()%4;
+        rand_num = rand()%20;
+
         set_esp8266_server();
 
          if(inicializa_serial("COM5", 8, ONESTOPBIT, NOPARITY, 115200, 1000)){
             printf("Waiting for connection...\n");
             while(!recebe_caracter_serial(&caractere));
+                if(caractere != '0') not_garbage = 0;
+            if(not_garbage){
             while(recebe_caracter_serial(&caractere));
             printf("Connection established!\n");
-            printf("Send me your question, may I help you...\n");
+            send_string("AT+CIPSEND=0,50");
+            while(recebe_caracter_serial(&caractere));
+            send_string("This is a Magic 8-Ball. Ask a yes or no question: ");
+            while(recebe_caracter_serial(&caractere));
             while(1){
                 if(counter == BUFFER_SIZE || caractere == '?') {
                     buffer[counter] = '\0';
@@ -64,6 +70,7 @@ int main(){
 
             }
              start = buffer - strchr(buffer, ':');
+             if(strchr(buffer, '?') != NULL) {
              end = strchr(buffer, '?') - buffer;
              new_string_length = end-start;
              new_string = (char*)malloc(new_string_length);
@@ -77,13 +84,25 @@ int main(){
             while(recebe_caracter_serial(&caractere));
             send_string(answers[rand_num]);
             while(recebe_caracter_serial(&caractere));
-            send_string("AT+CIPSEND=0,4");
+            send_string("AT+CIPSEND=0,7");
             while(recebe_caracter_serial(&caractere));
-            send_string("Bye!");
+            send_string("   Bye!");
             while(recebe_caracter_serial(&caractere));
             send_string("AT+CIPCLOSE=0");
             while(recebe_caracter_serial(&caractere));
             printf("Fim do programa\n");
+
+         }else{
+            send_string("AT+CIPSEND=0,27");
+            while(recebe_caracter_serial(&caractere));
+            send_string("You did not asked anything!");
+            while(recebe_caracter_serial(&caractere));
+            send_string("AT+CIPCLOSE=0");
+            while(recebe_caracter_serial(&caractere));
+         }
+         }else{
+            printf("Restart the programm, something has gone wrong! :(\n");
+         }
          }
         libera_serial();
         return 0;
